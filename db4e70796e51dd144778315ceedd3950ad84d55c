@@ -1,0 +1,51 @@
+testing/pressure-scenarios/testing-with-sandbox.md
+  f4478f2957d04006 1-19
+skills/setting-up-sending-domain/SKILL.md
+  f4478f2957d04006 1-67
+README.md
+  f4478f2957d04006 1-32
+testing/pressure-scenarios/using-email-templates.md
+  f4478f2957d04006 1-19
+skills/managing-contacts/SKILL.md
+  f4478f2957d04006 1-71
+testing/pressure-scenarios/setting-up-sending-domain.md
+  f4478f2957d04006 1-19
+skills/using-email-templates/SKILL.md
+  f4478f2957d04006 1-72
+skills/testing-with-sandbox/SKILL.md
+  f4478f2957d04006 1-69
+testing/pressure-scenarios/managing-contacts.md
+  f4478f2957d04006 1-19
+testing/pressure-scenarios/README.md
+  f4478f2957d04006 1-13
+skills/migrating-to-mailtrap/SKILL.md
+  f4478f2957d04006 1-56
+testing/pressure-scenarios/sending-emails.md
+  f4478f2957d04006 1-4,6-20
+testing/pressure-scenarios/migrating-to-mailtrap.md
+  f4478f2957d04006 1-18
+skills/sending-emails/SKILL.md
+  f4478f2957d04006 1-92
+testing/pressure-scenarios/cross-skill-regression.md
+  f4478f2957d04006 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "db4e70796e51dd144778315ceedd3950ad84d55c",
+  "prompts": {
+    "f4478f2957d04006": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8852a0ff-f2c1-4a27-a3f7-5f8d34120c56",
+        "model": "default"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>",
+      "messages": [],
+      "total_additions": 639,
+      "total_deletions": 42,
+      "accepted_lines": 596,
+      "overriden_lines": 1
+    }
+  }
+}
