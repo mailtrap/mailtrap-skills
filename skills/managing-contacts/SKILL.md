@@ -1,12 +1,11 @@
 ---
-
-## name: managing-contacts
-
+name: managing-contacts
 description: >-
-Use when using Mailtrap Contacts API or UI to add, update, bulk
-import, list, segment marketing contacts, custom fields, or custom
-events. Use when syncing contacts from a CRM or warehouse, or building
-audiences for campaigns.
+  Use when using Mailtrap Contacts API or UI to add, update, bulk
+  import, list, segment marketing contacts, custom fields, or custom
+  events. Use when syncing contacts from a CRM or warehouse, or building
+  audiences for campaigns.
+---
 
 # Managing Mailtrap contacts
 

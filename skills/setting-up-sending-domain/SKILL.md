@@ -1,10 +1,9 @@
 ---
-
-## name: setting-up-sending-domain
-
+name: setting-up-sending-domain
 description: >-
-Use when adding or verifying a Mailtrap sending domain, DNS propagation issues,
-registrar or DNS provider steps, compliance after verification, or click tracking. Domain must be verified before sending from it.
+  Use when adding or verifying a Mailtrap sending domain, DNS propagation issues,
+  registrar or DNS provider steps, compliance after verification, or click tracking. Domain must be verified before sending from it.
+---
 
 # Setting up a Mailtrap sending domain
 
