@@ -1,0 +1,31 @@
+skills/testing-with-sandbox/SKILL.md
+  a4448fd4d24fe7a3 2,4-9
+skills/managing-contacts/SKILL.md
+  a4448fd4d24fe7a3 2,4-8
+skills/setting-up-sending-domain/SKILL.md
+  a4448fd4d24fe7a3 2,4-6
+skills/sending-emails/SKILL.md
+  a4448fd4d24fe7a3 2,4-6
+skills/using-email-templates/SKILL.md
+  a4448fd4d24fe7a3 2,4-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "ff7c84c9455b7c0af8cb260ccc2cb34392735ff7",
+  "prompts": {
+    "a4448fd4d24fe7a3": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "13e57833-3022-4d15-ad88-bf8a9be96503",
+        "model": "default"
+      },
+      "human_author": "Leonid Shevtsov",
+      "messages": [],
+      "total_additions": 27,
+      "total_deletions": 32,
+      "accepted_lines": 27,
+      "overriden_lines": 0
+    }
+  }
+}
