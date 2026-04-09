@@ -1,13 +1,12 @@
 ---
-
-## name: testing-with-sandbox
-
+name: testing-with-sandbox
 description: >-
-Use when capturing outbound email in development or staging without
-delivering to real recipients, inspecting HTML or headers, running spam or
-structure checks, or automating tests against a fake inbox. Use when testing
-outgoing mail from an app without committing to a production ESP yet. Use when
-using Mailtrap Email Sandbox, Sandbox API, or sandbox-mode sending.
+  Use when capturing outbound email in development or staging without
+  delivering to real recipients, inspecting HTML or headers, running spam or
+  structure checks, or automating tests against a fake inbox. Use when testing
+  outgoing mail from an app without committing to a production ESP yet. Use when
+  using Mailtrap Email Sandbox, Sandbox API, or sandbox-mode sending.
+---
 
 # Testing with Mailtrap Email Sandbox
 

@@ -1,10 +1,9 @@
 ---
-
-## name: sending-emails
-
+name: sending-emails
 description: >-
-Use when integrating, configuring, or troubleshooting Mailtrap live email sending (Email API or SMTP).
-Use when wiring outbound mail from an application or choosing how to send.
+  Use when integrating, configuring, or troubleshooting Mailtrap live email sending (Email API or SMTP).
+  Use when wiring outbound mail from an application or choosing how to send.
+---
 
 # Sending emails (Mailtrap)
 

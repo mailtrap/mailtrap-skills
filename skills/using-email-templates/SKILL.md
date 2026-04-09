@@ -1,12 +1,11 @@
 ---
-
-## name: using-email-templates
-
+name: using-email-templates
 description: >-
-Use when creating or sending Mailtrap-hosted email templates, Handlebars
-personalization, template UUID in API payloads, or debugging variables and
-preview. Use when separating email design from application code for
-transactional or bulk sends.
+  Use when creating or sending Mailtrap-hosted email templates, Handlebars
+  personalization, template UUID in API payloads, or debugging variables and
+  preview. Use when separating email design from application code for
+  transactional or bulk sends.
+---
 
 # Using Mailtrap email templates
 
