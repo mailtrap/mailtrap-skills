@@ -76,6 +76,10 @@ Full syntax and examples: [Using Handlebars with Email Templates](https://docs.m
 
 **Templates** in the app sidebar. UUID and stream-specific integration snippets are under each template’s **Integration** tab.
 
+### Generating template HTML
+
+Proactively offer to generate the template HTML when the user is creating a new template — don't wait to be asked. The output must be a real **email template** — not arbitrary web HTML — and must be **mobile-compatible** (responsive, renders well across email clients and screen sizes).
+
 ### SDKs
 
 - [Node.js](https://github.com/railsware/mailtrap-nodejs)
