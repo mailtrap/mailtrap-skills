@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Skill test output (generated)
+skills/*/tests/output/*.html
+skills/*/tests/output/*.txt
+!skills/*/tests/output/.gitkeep
