@@ -13,13 +13,14 @@ Each skill is a directory containing `SKILL.md`. Restart or reload the agent if 
 
 ## Contents
 
-| Skill                       | Purpose                                                     |
-| --------------------------- | ----------------------------------------------------------- |
-| `sending-emails`            | Live sending via Email API and SMTP (transactional vs bulk) |
-| `testing-with-sandbox`      | Email Sandbox, Testing API, safe capture in dev/staging     |
-| `using-email-templates`     | Account-scoped templates, Handlebars, API template send     |
-| `setting-up-sending-domain` | Domain verification, DNS (add all records), compliance      |
-| `managing-contacts`         | Contacts API, lists, segments, CRM-style sync               |
+| Skill                          | Purpose                                                     |
+| ------------------------------ | ----------------------------------------------------------- |
+| `sending-emails`               | Live sending via Email API and SMTP (transactional vs bulk) |
+| `testing-with-sandbox`         | Email Sandbox, Testing API, safe capture in dev/staging     |
+| `using-email-templates`        | Account-scoped templates, Handlebars, API template send     |
+| `converting-email-templates`   | Convert templates from SendGrid, Mailgun, Mandrill, Postmark, Brevo, SES to Mailtrap Handlebars |
+| `setting-up-sending-domain`    | Domain verification, DNS (add all records), compliance      |
+| `managing-contacts`            | Contacts API, lists, segments, CRM-style sync               |
 
 ## References
 
