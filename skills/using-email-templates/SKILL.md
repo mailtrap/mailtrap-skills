@@ -19,7 +19,7 @@ Templates are edited in the Mailtrap **UI**, referenced by **UUID** from your ap
 
 **Template management via API** (create/update/list outside the UI): [Templates API](https://docs.mailtrap.io/developers/templates/templates.md).
 
-**Related skills:** `sending-emails` (bases and auth for each stream), `testing-with-sandbox` (preview sends without live delivery).
+**Related skills:** `authorizing-api-requests` (tokens, env vars, auth headers), `sending-emails` (bases and streams), `testing-with-sandbox` (preview sends without live delivery).
 
 ## When to use
 
@@ -38,13 +38,17 @@ In the developer docs, open:
 - [Transactional – Send email (including template)](https://docs.mailtrap.io/developers/email-sending/transactional.md) (`https://send.api.mailtrap.io`)
 - [Bulk – Send email (including template)](https://docs.mailtrap.io/developers/email-sending/bulk.md) (`https://bulk.api.mailtrap.io`)
 
-Request body variant is typically `**EmailFromTemplate`\*\* in the interactive reference.
+Request body variant is typically **`EmailFromTemplate`** in the interactive reference.
+
+### Authorization
+
+Send with `Authorization: Bearer $MAILTRAP_API_TOKEN` on the matching stream host (`send.api.mailtrap.io` or `bulk.api.mailtrap.io`). Token scope, storage, and the alternative `Api-Token` header are covered in skill `authorizing-api-requests`.
 
 ### Example (`curl`) — template send
 
 ```bash
 curl -X POST https://send.api.mailtrap.io/api/send \
-  -H "Authorization: Bearer TOKEN" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "from": {"email": "hello@yourdomain.com", "name": "Your App"},
@@ -74,7 +78,7 @@ Full syntax and examples: [Using Handlebars with Email Templates](https://docs.m
 
 ### Where templates live
 
-**Templates** in the app sidebar. UUID and stream-specific integration snippets are under each template’s **Integration** tab.
+**Templates** in the app sidebar. UUID and stream-specific integration snippets are under each template's **Integration** tab.
 
 ### Generating template HTML
 
@@ -82,11 +86,13 @@ Proactively offer to generate the template HTML when the user is creating a new 
 
 ### SDKs
 
-- [Node.js](https://github.com/railsware/mailtrap-nodejs)
-- [Python](https://github.com/railsware/mailtrap-python)
-- [PHP](https://github.com/railsware/mailtrap-php)
-- [Ruby](https://github.com/railsware/mailtrap-ruby)
+- [Node.js](https://github.com/mailtrap/mailtrap-nodejs)
+- [Python](https://github.com/mailtrap/mailtrap-python)
+- [PHP](https://github.com/mailtrap/mailtrap-php)
+- [Ruby](https://github.com/mailtrap/mailtrap-ruby)
 - [Java](https://github.com/mailtrap/mailtrap-java)
+- [.NET](https://github.com/mailtrap/mailtrap-dotnet)
+- [CLI](https://github.com/mailtrap/mailtrap-cli)
 
 ## Common mistakes
 

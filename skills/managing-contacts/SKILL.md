@@ -17,7 +17,7 @@ description: >-
 
 **Suppressions** (hard bounces, spam complaints, unsubscribes on the **sending** side) live in the sending product and **block delivery** for those addresses on your streams. That is applied separately from **marketing** filters (segments, list membership, consent flags) that decide who is eligible for campaigns. For sending-side blocks, see [Suppressions](https://docs.mailtrap.io/developers/email-sending/suppressions.md) and skill `sending-emails`.
 
-**Related skills:** `sending-emails` (live send paths).
+**Related skills:** `authorizing-api-requests` (tokens, env vars, `account_id` resolution), `sending-emails` (live send paths).
 
 ## When to use
 
@@ -27,16 +27,20 @@ description: >-
 - Updating contacts with **custom fields** or firing **custom events** for [automations](https://docs.mailtrap.io/email-marketing/automations.md)
 - Segments and [custom fields](https://docs.mailtrap.io/email-marketing/contacts/custom-fields.md) for audience building
 
+## Authorization
+
+All endpoints below need `Authorization: Bearer $MAILTRAP_API_TOKEN` and an `$MAILTRAP_ACCOUNT_ID` in the path. See skill `authorizing-api-requests` for token scope, storage, and the one-liner that resolves `$MAILTRAP_ACCOUNT_ID` from `GET https://mailtrap.io/api/accounts`.
+
 ## Endpoints (replace placeholders)
 
-| Action                                 | Method  | URL                                                                                  | Reference                                                                                      |
-| -------------------------------------- | ------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| Create / get / update / delete contact | various | `https://mailtrap.io/api/accounts/{account_id}/contacts`                             | [Contacts](https://docs.mailtrap.io/developers/promotional/contacts/contacts.md)               |
-| Bulk import (async job)                | `POST`  | `https://mailtrap.io/api/accounts/{account_id}/contacts/imports`                     | [Bulk import](https://docs.mailtrap.io/developers/promotional/contacts/bulk-import.md)         |
-| Contact lists                          | various | `https://mailtrap.io/api/accounts/{account_id}/contacts/lists`                       | [Contact lists](https://docs.mailtrap.io/developers/promotional/contacts/contact-lists.md)     |
-| Custom fields                          | various | `https://mailtrap.io/api/accounts/{account_id}/contacts/fields`                      | [Contact fields](https://docs.mailtrap.io/developers/promotional/contacts/contact-fields.md)   |
-| Custom events                          | `POST`  | `https://mailtrap.io/api/accounts/{account_id}/contacts/{contact_identifier}/events` | [Contact events](https://docs.mailtrap.io/developers/promotional/contacts/contact-events.md)   |
-| Export contacts                        | various | `https://mailtrap.io/api/accounts/{account_id}/contacts/exports`                     | [Export contacts](https://docs.mailtrap.io/developers/promotional/contacts/export-contacts.md) |
+| Action                                 | Method  | URL                                                                                       | Reference                                                                                      |
+| -------------------------------------- | ------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Create / get / update / delete contact | various | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts`                          | [Contacts](https://docs.mailtrap.io/developers/promotional/contacts/contacts.md)               |
+| Bulk import (async job)                | `POST`  | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/imports`                  | [Bulk import](https://docs.mailtrap.io/developers/promotional/contacts/bulk-import.md)         |
+| Contact lists                          | various | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/lists`                    | [Contact lists](https://docs.mailtrap.io/developers/promotional/contacts/contact-lists.md)     |
+| Custom fields                          | various | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/fields`                   | [Contact fields](https://docs.mailtrap.io/developers/promotional/contacts/contact-fields.md)   |
+| Custom events                          | `POST`  | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/{contact_identifier}/events` | [Contact events](https://docs.mailtrap.io/developers/promotional/contacts/contact-events.md)   |
+| Export contacts                        | various | `https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/exports`                  | [Export contacts](https://docs.mailtrap.io/developers/promotional/contacts/export-contacts.md) |
 
 - Rate limit (typical): **200 requests per 60 seconds** per account — prefer bulk import for large loads.
 - **Bulk import limit:** up to **50,000** contacts per import request (async job); poll import status with `GET .../contacts/imports/{import_id}`. See [Bulk import](https://docs.mailtrap.io/developers/promotional/contacts/bulk-import.md).
@@ -46,8 +50,8 @@ description: >-
 ### Single contact create (with custom fields)
 
 ```bash
-curl -X POST https://mailtrap.io/api/accounts/{account_id}/contacts \
-  -H 'Authorization: Bearer YOUR_API_TOKEN' \
+curl -X POST "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{
     "contact": {
@@ -61,8 +65,8 @@ curl -X POST https://mailtrap.io/api/accounts/{account_id}/contacts \
 ### Bulk import (array of contacts)
 
 ```bash
-curl -X POST https://mailtrap.io/api/accounts/{account_id}/contacts/imports \
-  -H 'Authorization: Bearer YOUR_API_TOKEN' \
+curl -X POST "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/imports" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{
     "contacts": [
@@ -75,8 +79,8 @@ curl -X POST https://mailtrap.io/api/accounts/{account_id}/contacts/imports \
 ### Custom event (event name + payload)
 
 ```bash
-curl -X POST https://mailtrap.io/api/accounts/{account_id}/contacts/{contact_identifier}/events \
-  -H 'Authorization: Bearer YOUR_API_TOKEN' \
+curl -X POST "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/contacts/{contact_identifier}/events" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{"name": "UserLogin", "params": {"user_id": 101, "is_active": true}}'
 ```

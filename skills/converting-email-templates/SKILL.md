@@ -13,7 +13,7 @@ description: >-
 
 Automatically convert email templates from other email service providers into Mailtrap-compatible Handlebars syntax. Handles both deterministic pattern conversions (via a Python script) and complex edge cases (via LLM intelligence).
 
-**Related skills:** `using-email-templates` (Handlebars syntax, API template send), `sending-emails` (stream bases and auth).
+**Related skills:** `using-email-templates` (Handlebars syntax, API template send), `sending-emails` (stream bases and auth), `authorizing-api-requests` (tokens, env vars, `account_id` resolution — needed when creating templates or sending via the Templates API after conversion).
 
 ## Input
 
