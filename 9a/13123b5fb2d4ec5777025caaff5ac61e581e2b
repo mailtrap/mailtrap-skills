@@ -1,0 +1,74 @@
+skills/using-email-templates/SKILL.md
+  s_6dc1ff92aabfc4::t_5f7d57733ddaf6 94-95
+  s_50f9c1d62365c2::t_1edfea38b27316 43,45
+  s_50f9c1d62365c2::t_2ed181d06b9a2e 22
+  s_50f9c1d62365c2::t_59a400bd854477 81
+  s_50f9c1d62365c2::t_ffd0eb7dabe27e 44,51
+  s_50f9c1d62365c2::t_4e20ef0478f9ad 41
+  s_50f9c1d62365c2::t_243cb66b9bb913 89-92
+skills/testing-with-sandbox/SKILL.md
+  s_50f9c1d62365c2::t_128a73aa56a390 19
+  s_50f9c1d62365c2::t_20c0a5fb93743b 76-81
+  s_50f9c1d62365c2::t_8caaeea164483e 89-92
+  s_50f9c1d62365c2::t_9e8df591c4f9f0 43
+  s_6dc1ff92aabfc4::t_d2d4c67de5de9c 94-95
+  s_50f9c1d62365c2::t_5c01c1851c1b23 37-39,41-42
+skills/setting-up-sending-domain/SKILL.md
+  s_50f9c1d62365c2::t_ea51ae7b08353c 58
+  s_50f9c1d62365c2::t_8e0763282a1bf3 18
+  s_50f9c1d62365c2::t_6476f38867e147 30,32,35,38-39,41
+  s_50f9c1d62365c2::t_803df1faf22bd1 68
+  s_50f9c1d62365c2::t_7dd33e53fd4436 29,31
+skills/authorizing-api-requests/SKILL.md
+  s_50f9c1d62365c2::t_008884d894997d 1-145
+README.md
+  s_50f9c1d62365c2::t_56c9cf3731da0d 5-8,11-71,75-78,99
+  s_50f9c1d62365c2::t_97c9e7e9cca8e4 85-90,92-93
+  s_50f9c1d62365c2::t_2d07d30849a802 73,79,81
+skills/converting-email-templates/content/how-to-migrate-email-templates.md
+  s_6dc1ff92aabfc4::t_7e056c6fad4705 262,298,306,322
+  s_50f9c1d62365c2::t_a4e84a3106aab9 388
+  s_50f9c1d62365c2::t_47e46941a30a82 14-15
+  s_50f9c1d62365c2::t_4ed02d285da8d0 372
+  s_50f9c1d62365c2::t_61b7303f9511e8 297,305,321
+  s_50f9c1d62365c2::t_62b5122c5580db 336
+  s_50f9c1d62365c2::t_107b0b8bf0b7e3 261,275
+skills/managing-contacts/SKILL.md
+  s_50f9c1d62365c2::t_fb7d39327b59cf 20
+  s_50f9c1d62365c2::t_53b828c670bf73 30,32
+  s_50f9c1d62365c2::t_a85beac9761258 53-54,68-69,82-83
+  s_50f9c1d62365c2::t_f3b2797cf2b5d7 31,33,36-43
+skills/sending-emails/SKILL.md
+  s_50f9c1d62365c2::t_abb4dd23f0a53a 46-49,58,61
+  s_50f9c1d62365c2::t_10e6429a563740 82,92,96,110
+  s_50f9c1d62365c2::t_8acdc62f173868 60,62
+  s_50f9c1d62365c2::t_c630c625c79e01 34
+  s_6dc1ff92aabfc4::t_f400e35c75bb80 140-141
+  s_50f9c1d62365c2::t_2a9f09f975eb11 121,135-138
+skills/converting-email-templates/SKILL.md
+  s_50f9c1d62365c2::t_fef335244f5a50 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "9a13123b5fb2d4ec5777025caaff5ac61e581e2b",
+  "prompts": {},
+  "sessions": {
+    "s_50f9c1d62365c2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "2a443395-1f50-44d0-a8b7-3a68ec477ab7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
+    "s_6dc1ff92aabfc4": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ba0d1965-261c-4fb3-9abb-f5b1fa78dfed",
+        "model": "default"
+      },
+      "human_author": null
+    }
+  }
+}
