@@ -1,0 +1,48 @@
+skills/converting-email-templates/SKILL.md
+  s_2b2b3ded14b62d::t_38b31ddbdf8d77 16
+skills/testing-with-sandbox/SKILL.md
+  s_2b2b3ded14b62d::t_eca6f86dee9769 19,37-39,41,43,76-81
+  s_2b2b3ded14b62d::t_4ef7e47ec14369 17
+  s_2b2b3ded14b62d::t_3499e0fdaba683 74
+  s_2b2b3ded14b62d::t_8f7dfbf3f12e16 103
+  s_2b2b3ded14b62d::t_40b5ea9a501b38 62
+skills/converting-email-templates/content/how-to-migrate-email-templates.md
+  s_2b2b3ded14b62d::t_cc556d9363f380 305,321
+  s_2b2b3ded14b62d::t_7427173c5cbf50 275
+  s_2b2b3ded14b62d::t_6e1e0a18c360ad 261,297
+skills/authorizing-api-requests/SKILL.md
+  s_2b2b3ded14b62d::t_046f27b29b4e56 7,16,67,75,82,98
+  s_2b2b3ded14b62d::t_aefd7e49f5e35d 14
+  s_2b2b3ded14b62d::t_54fcb846414026 31
+skills/managing-contacts/SKILL.md
+  s_2b2b3ded14b62d::t_9beda455b38f5a 32
+  s_2b2b3ded14b62d::t_f51b8ad09006fa 20
+  s_2b2b3ded14b62d::t_ae32b7f6eebe6d 38-43
+  s_2b2b3ded14b62d::t_c50c6234b82f00 53
+  s_2b2b3ded14b62d::t_1108734de62e1e 68
+  s_2b2b3ded14b62d::t_15eba66e722e8b 82
+README.md
+  s_2b2b3ded14b62d::t_5115e00d6283ec 89
+  s_2b2b3ded14b62d::t_27577494cf4932 86
+  s_2b2b3ded14b62d::t_a63f9793de3a87 71,77,80
+skills/setting-up-sending-domain/SKILL.md
+  s_2b2b3ded14b62d::t_6c9e5576493e11 31
+  s_2b2b3ded14b62d::t_e37574e32d08e9 37-39,41
+  s_2b2b3ded14b62d::t_91b51542f47ada 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "8bc9a86a594d18f2e7eb3991b0256828dd58c14e",
+  "prompts": {},
+  "sessions": {
+    "s_2b2b3ded14b62d": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "cdd8651b-1e19-4c42-bf0d-3b321bf812e1",
+        "model": "default"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
