@@ -11,8 +11,8 @@ This guide walks you through the full migration process: exporting templates fro
 Before you start, make sure you have:
 
 - A Mailtrap account with access to the [Email Templates](https://docs.mailtrap.io/email-api-smtp/email-templates) feature
-- A [verified sending domain](https://help.mailtrap.io/article/69-sending-domain-setup) set up within Mailtrap
-- An API token with template management permissions (see [Authentication](https://docs.mailtrap.io/developers/authentication))
+- A [verified sending domain](https://docs.mailtrap.io/email-api-smtp/setup/sending-domain.md) set up within Mailtrap
+- An API token with template management permissions (see [Authentication](https://docs.mailtrap.io/developers/authentication) and the `authorizing-api-requests` skill in this repo for env-var conventions used by the examples below)
 - Your existing templates exported as HTML from your current provider
 
 ## Step 1: Export your templates
@@ -258,8 +258,8 @@ To create a template programmatically, send a `POST` request to the Templates AP
 
 ```bash
 curl --request POST \
-  --url https://mailtrap.io/api/accounts/{account_id}/email_templates \
-  --header 'Api-Token: YOUR_API_TOKEN' \
+  --url "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/email_templates" \
+  --header "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
   "email_template": {
@@ -272,7 +272,7 @@ curl --request POST \
 }'
 ```
 
-Replace `{account_id}` with your Mailtrap account ID (found in the URL when you log in: `https://mailtrap.io/accounts/{account_id}/...`), and `YOUR_API_TOKEN` with your API token.
+Set `MAILTRAP_API_TOKEN` from an env / `.env` / secret manager (never hardcode), and resolve `MAILTRAP_ACCOUNT_ID` once via `GET https://mailtrap.io/api/accounts` instead of pasting it in by hand. The `authorizing-api-requests` skill in this repo covers both — including the one-liner that exports `MAILTRAP_ACCOUNT_ID` from the response.
 
 The response includes the template `uuid`, which you will use in your send calls:
 
@@ -294,16 +294,16 @@ The response includes the template `uuid`, which you will use in your send calls
 
 ```bash
 curl --request GET \
-  --url https://mailtrap.io/api/accounts/{account_id}/email_templates \
-  --header 'Api-Token: YOUR_API_TOKEN'
+  --url "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/email_templates" \
+  --header "Authorization: Bearer $MAILTRAP_API_TOKEN"
 ```
 
 **Update a template:**
 
 ```bash
 curl --request PATCH \
-  --url https://mailtrap.io/api/accounts/{account_id}/email_templates/{email_template_id} \
-  --header 'Api-Token: YOUR_API_TOKEN' \
+  --url "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/email_templates/{email_template_id}" \
+  --header "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
   "email_template": {
@@ -318,8 +318,8 @@ Only include the fields you want to change. All fields are optional on update.
 
 ```bash
 curl --request DELETE \
-  --url https://mailtrap.io/api/accounts/{account_id}/email_templates/{email_template_id} \
-  --header 'Api-Token: YOUR_API_TOKEN'
+  --url "https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/email_templates/{email_template_id}" \
+  --header "Authorization: Bearer $MAILTRAP_API_TOKEN"
 ```
 
 > Warning: Template deletion is permanent and cannot be undone. Any send calls referencing the deleted template's UUID will fail.
@@ -333,7 +333,7 @@ After creating your templates in Mailtrap, update the API calls in your applicat
 ```bash
 curl --request POST \
   --url https://send.api.mailtrap.io/api/send \
-  --header 'Authorization: Bearer YOUR_MAILTRAP_API_KEY' \
+  --header "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
   "from": {
@@ -369,7 +369,7 @@ When you use `template_uuid`, the subject, HTML body, and text body come from th
 
 ## Step 5: Test with Email Testing
 
-Before sending to real recipients, use [Mailtrap Email Testing](https://mailtrap.io/email-testing/) to verify your migrated templates render correctly.
+Before sending to real recipients, use [Mailtrap Email Testing](https://docs.mailtrap.io/email-sandbox/overview) to verify your migrated templates render correctly.
 
 1. Point your application's SMTP or API configuration to the Email Testing inbox.
 2. Trigger a send for each migrated template.
@@ -385,6 +385,6 @@ This lets you catch conversion issues before they reach real recipients.
 
 - Start with your highest-traffic templates. Migrate the templates that handle password resets, order confirmations, and welcome emails first.
 - Keep your old provider running in parallel. Send from both providers during migration to avoid downtime, then cut over once all templates are verified.
-- Use the Templates API for bulk migration. If you have many templates, script the creation process instead of using the UI. Read the full [API documentation](https://api-docs.mailtrap.io/) for details.
+- Use the Templates API for bulk migration. If you have many templates, script the creation process instead of using the UI. Read the full [API documentation](https://docs.mailtrap.io/developers/) for details.
 - Format dates and computed values server-side. Mailtrap's Handlebars does not include date formatting or comparison helpers. Pass pre-formatted strings and pre-computed booleans as template variables.
 - Map your template IDs. Keep a spreadsheet or config file that maps old provider template IDs to new Mailtrap `template_uuid` values. This makes updating your codebase easier.

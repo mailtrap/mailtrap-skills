@@ -16,7 +16,7 @@ description: >-
 
 **Before generating SDK code:** read the README of the relevant SDK repository (see `sending-emails`) for current sandbox mode options, **inbox id**, and constructor flags. Do not rely on memory.
 
-**Related skills:** `sending-emails` (live sending hosts and streams), `using-email-templates` (preview template sends in sandbox).
+**Related skills:** `authorizing-api-requests` (sandbox token scope, env vars, `account_id` resolution), `sending-emails` (live sending hosts and streams), `using-email-templates` (preview template sends in sandbox).
 
 ## When to use
 
@@ -34,11 +34,13 @@ description: >-
 
 ### API base
 
-| Service                  | Send mail URL                                         | Auth header examples                           |
-| ------------------------ | ----------------------------------------------------- | ---------------------------------------------- |
-| Email Testing API (REST) | `https://sandbox.api.mailtrap.io/api/send/{inbox_id}` | `Authorization: Bearer YOUR_SANDBOX_API_TOKEN` |
+| Service                  | Send mail URL                                         | Auth header examples                              |
+| ------------------------ | ----------------------------------------------------- | ------------------------------------------------- |
+| Email Testing API (REST) | `https://sandbox.api.mailtrap.io/api/send/{inbox_id}` | `Authorization: Bearer $MAILTRAP_SANDBOX_API_TOKEN` |
 
-Tokens are created under **Settings** > [API Tokens](https://mailtrap.io/api-tokens). Use a token with **Testing/Sandbox** scope to access sandbox resources or send into a sandbox.
+### Tokens and account_id
+
+Sandbox uses a **separate** token (`$MAILTRAP_SANDBOX_API_TOKEN`, Testing/Sandbox scope) — never reuse the live `$MAILTRAP_API_TOKEN`. The `account_id` in the example endpoints below is resolved at runtime via `GET https://mailtrap.io/api/accounts`. Full token scope, storage, and `account_id` resolution: see skill `authorizing-api-requests`.
 
 ### When to use API vs SMTP
 
@@ -71,12 +73,12 @@ Use the **HTTP API** when building new integrations or your app can make HTTP re
 
 Use [API docs](https://docs.mailtrap.io/developers/) for details, but typical endpoints include:
 
-| Operation       | URL                                                                                  | Reference                                                                                 |
-| --------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| List sandboxes  | `GET https://mailtrap.io/api/accounts/{account_id}/inboxes`                          | [Sandboxes API](https://docs.mailtrap.io/developers/email-sandbox/sandboxes-inboxes.md)   |
-| List messages   | `GET https://mailtrap.io/api/accounts/{account_id}/inboxes/{inbox_id}/messages`      | [Messages](https://docs.mailtrap.io/developers/email-sandbox/messages.md)                 |
-| Fetch a message | `GET https://mailtrap.io/api/accounts/{account_id}/inboxes/{inbox_id}/messages/{id}` | [Message details](https://docs.mailtrap.io/developers/email-sandbox/messages.md)          |
-| Send test email | `POST https://mailtrap.io/api/accounts/{account_id}/inboxes/{inbox_id}/messages`     | [Send test emails](https://docs.mailtrap.io/developers/email-sandbox/send-test-emails.md) |
+| Operation       | URL                                                                                          | Reference                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| List sandboxes  | `GET https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/inboxes`                          | [Sandboxes API](https://docs.mailtrap.io/developers/email-sandbox/sandboxes-inboxes.md)   |
+| List messages   | `GET https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/inboxes/{inbox_id}/messages`      | [Messages](https://docs.mailtrap.io/developers/email-sandbox/messages.md)                 |
+| Fetch a message | `GET https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/inboxes/{inbox_id}/messages/{id}` | [Message details](https://docs.mailtrap.io/developers/email-sandbox/messages.md)          |
+| Send test email | `POST https://mailtrap.io/api/accounts/$MAILTRAP_ACCOUNT_ID/inboxes/{inbox_id}/messages`     | [Send test emails](https://docs.mailtrap.io/developers/email-sandbox/send-test-emails.md) |
 
 For **template testing**, see the Integration tab of your template and [Handlebars](https://docs.mailtrap.io/email-api-smtp/email-templates/handlebars.md).
 
@@ -84,11 +86,13 @@ For **template testing**, see the Integration tab of your template and [Handleba
 
 Official Mailtrap SDKs support sandbox/inbox operations and provide flags or methods to set **test mode** and **inbox id**. This allows you to use the same integration for both live sending and sandbox testing—simply change the mode or credentials depending on your environment (development, staging, or production). For install commands and language coverage, see [Mailtrap developer documentation](https://docs.mailtrap.io/developers/). Repository READMEs have the latest sandbox options:
 
-- [Node.js](https://github.com/railsware/mailtrap-nodejs)
-- [Python](https://github.com/railsware/mailtrap-python)
-- [PHP](https://github.com/railsware/mailtrap-php)
-- [Ruby](https://github.com/railsware/mailtrap-ruby)
+- [Node.js](https://github.com/mailtrap/mailtrap-nodejs)
+- [Python](https://github.com/mailtrap/mailtrap-python)
+- [PHP](https://github.com/mailtrap/mailtrap-php)
+- [Ruby](https://github.com/mailtrap/mailtrap-ruby)
 - [Java](https://github.com/mailtrap/mailtrap-java)
+- [.NET](https://github.com/mailtrap/mailtrap-dotnet)
+- [CLI](https://github.com/mailtrap/mailtrap-cli)
 
 ### Common mistakes
 

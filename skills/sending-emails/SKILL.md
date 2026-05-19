@@ -31,7 +31,7 @@ Mailtrap sends live email over **Email API** (REST) or **SMTP**. Two **streams**
 
 **Before generating SDK code:** read the README of the relevant SDK repository linked in the **SDKs** section below for current method signatures, constructor options, and examples. Do not rely on memory.
 
-**Related skills:** `using-email-templates` (template UUID and variables), `testing-with-sandbox` (safe testing), `setting-up-sending-domain` (verification before send).
+**Related skills:** `authorizing-api-requests` (tokens, env vars, auth headers), `using-email-templates` (template UUID and variables), `testing-with-sandbox` (safe testing), `setting-up-sending-domain` (verification before send).
 
 ## When not to use
 
@@ -43,10 +43,10 @@ Mailtrap sends live email over **Email API** (REST) or **SMTP**. Two **streams**
 
 ### Email API
 
-| Stream                                | Send Endpoint                                | Batch Endpoint                                | Authorization Header                   |
-| ------------------------------------- | -------------------------------------------- | --------------------------------------------- | -------------------------------------- |
-| Transactional                         | `POST https://send.api.mailtrap.io/api/send` | `POST https://send.api.mailtrap.io/api/batch` | `Authorization: Bearer YOUR_API_TOKEN` |
-| Bulk (promotional / marketing volume) | `POST https://bulk.api.mailtrap.io/api/send` | `POST https://bulk.api.mailtrap.io/api/batch` | `Authorization: Bearer YOUR_API_TOKEN` |
+| Stream                                | Send Endpoint                                | Batch Endpoint                                | Authorization Header                       |
+| ------------------------------------- | -------------------------------------------- | --------------------------------------------- | ------------------------------------------ |
+| Transactional                         | `POST https://send.api.mailtrap.io/api/send` | `POST https://send.api.mailtrap.io/api/batch` | `Authorization: Bearer $MAILTRAP_API_TOKEN` |
+| Bulk (promotional / marketing volume) | `POST https://bulk.api.mailtrap.io/api/send` | `POST https://bulk.api.mailtrap.io/api/batch` | `Authorization: Bearer $MAILTRAP_API_TOKEN` |
 
 ### SMTP
 
@@ -55,9 +55,11 @@ Mailtrap sends live email over **Email API** (REST) or **SMTP**. Two **streams**
 | Host     | `live.smtp.mailtrap.io`           | `bulk.smtp.mailtrap.io`           |
 | Port     | 587 (also 25, 2525, 465 with SSL) | 587 (also 25, 2525, 465 with SSL) |
 | Username | `api`                             | `api`                             |
-| Password | API token                         | API token                         |
+| Password | API token (`$MAILTRAP_API_TOKEN`) | API token (`$MAILTRAP_API_TOKEN`) |
 
-Tokens are created via **Settings** > [API Tokens](https://mailtrap.io/api-tokens). See [API tokens documentation](https://docs.mailtrap.io/email-api-smtp/setup/api-tokens.md).
+### Tokens
+
+Use `$MAILTRAP_API_TOKEN` in either `Authorization: Bearer ...` or `Api-Token: ...`. The same token works on both `send.api.mailtrap.io` and `bulk.api.mailtrap.io` as long as its scope covers the stream. Full guidance (scope, storage, rotation) lives in skill `authorizing-api-requests`.
 
 ### Rate limits
 
@@ -77,7 +79,7 @@ Transactional send (`send.api.mailtrap.io`):
 
 ```bash
 curl -X POST https://send.api.mailtrap.io/api/send \
-  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "from": {"email": "hello@yourdomain.com", "name": "Your App"},
@@ -87,11 +89,11 @@ curl -X POST https://send.api.mailtrap.io/api/send \
   }'
 ```
 
-Bulk stream uses the **same** path and JSON shape on the bulk host:
+Bulk stream uses the **same** path and JSON shape on the bulk host (same env var; the token only needs bulk-stream scope):
 
 ```bash
 curl -X POST https://bulk.api.mailtrap.io/api/send \
-  -H "Authorization: Bearer YOUR_BULK_STREAM_TOKEN" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "from": {"email": "hello@yourdomain.com", "name": "Your App"},
@@ -105,7 +107,7 @@ Batch (array of messages; up to 500 per request — see API docs for full schema
 
 ```bash
 curl -X POST https://send.api.mailtrap.io/api/batch \
-  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"messages":[{"from":{"email":"a@example.com"},"to":[{"email":"b@example.com"}],"subject":"One","text":"..."}]}'
 ```
@@ -116,7 +118,7 @@ Use `template_uuid` and `template_variables` instead of raw `text`/`html` to use
 
 ```bash
 curl -X POST https://send.api.mailtrap.io/api/send \
-  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "from": {"email": "hello@yourdomain.com", "name": "Your App"},
@@ -130,11 +132,13 @@ See skill `using-email-templates` and the same API operations as non-template se
 
 ### SDKs
 
-- [Node.js](https://github.com/railsware/mailtrap-nodejs)
-- [Python](https://github.com/railsware/mailtrap-python)
-- [PHP](https://github.com/railsware/mailtrap-php)
-- [Ruby](https://github.com/railsware/mailtrap-ruby)
+- [Node.js](https://github.com/mailtrap/mailtrap-nodejs)
+- [Python](https://github.com/mailtrap/mailtrap-python)
+- [PHP](https://github.com/mailtrap/mailtrap-php)
+- [Ruby](https://github.com/mailtrap/mailtrap-ruby)
 - [Java](https://github.com/mailtrap/mailtrap-java)
+- [.NET](https://github.com/mailtrap/mailtrap-dotnet)
+- [CLI](https://github.com/mailtrap/mailtrap-cli)
 
 ## Suppressions
 
