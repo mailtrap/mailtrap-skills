@@ -1,0 +1,37 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Sending",
+      "description": "Send live email with Mailtrap and prepare the account for sending.",
+      "skills": [
+        "sending-emails",
+        "setting-up-sending-domain",
+        "authorizing-api-requests"
+      ]
+    },
+    {
+      "title": "Templates",
+      "description": "Create, send, and migrate Mailtrap-hosted email templates.",
+      "skills": [
+        "using-email-templates",
+        "converting-email-templates"
+      ]
+    },
+    {
+      "title": "Testing",
+      "description": "Capture and inspect outbound email in development with Mailtrap Email Sandbox.",
+      "skills": [
+        "testing-with-sandbox"
+      ]
+    },
+    {
+      "title": "Contacts",
+      "description": "Manage marketing contacts, custom fields, and events.",
+      "skills": [
+        "managing-contacts"
+      ]
+    }
+  ]
+}
