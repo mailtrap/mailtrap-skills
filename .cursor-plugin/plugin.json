@@ -1,0 +1,14 @@
+{
+  "name": "mailtrap",
+  "displayName": "Mailtrap",
+  "description": "Skills for sending and testing emails, managing contacts and templates, configuring sending domains, and migrating email templates with Mailtrap.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mailtrap",
+    "url": "https://mailtrap.io"
+  },
+  "homepage": "https://mailtrap.io",
+  "repository": "https://github.com/mailtrap/mailtrap-skills",
+  "license": "MIT",
+  "keywords": ["email", "mailtrap", "smtp", "email-testing", "email-delivery"]
+}
