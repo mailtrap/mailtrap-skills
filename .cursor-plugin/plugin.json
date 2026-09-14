@@ -4,8 +4,7 @@
   "description": "Skills for sending and testing emails, managing contacts and templates, configuring sending domains, and migrating email templates with Mailtrap.",
   "version": "1.0.0",
   "author": {
-    "name": "Mailtrap",
-    "url": "https://mailtrap.io"
+    "name": "Mailtrap"
   },
   "homepage": "https://mailtrap.io",
   "repository": "https://github.com/mailtrap/mailtrap-skills",
