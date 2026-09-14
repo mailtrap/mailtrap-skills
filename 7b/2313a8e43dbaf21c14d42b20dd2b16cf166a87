@@ -1,0 +1,21 @@
+.cursor-plugin/plugin.json
+  s_afed5e43052f57::t_866e68c3cf7e10 1-14
+.cursor-plugin/marketplace.json
+  s_afed5e43052f57::t_638d3df6de2142 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7b2313a8e43dbaf21c14d42b20dd2b16cf166a87",
+  "prompts": {},
+  "sessions": {
+    "s_afed5e43052f57": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "2161ab00-9d54-477b-a580-3c1a0954d898",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
