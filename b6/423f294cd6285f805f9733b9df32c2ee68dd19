@@ -1,0 +1,29 @@
+.codex-plugin/plugin.json
+  s_4488c87b2ec788::t_fb18a0df440a5f 1-22
+.claude-plugin/plugin.json
+  s_4488c87b2ec788::t_9a95e5fce9d695 1-15
+.agents/plugins/marketplace.json
+  s_4488c87b2ec788::t_2e790525010ba2 1-20
+plugin.json
+  s_4488c87b2ec788::t_9b50b5948b1285 1-15
+.claude-plugin/marketplace.json
+  s_4488c87b2ec788::t_e679c0afecfe6a 1-20
+README.md
+  s_4488c87b2ec788::t_84fcd837a9b146 9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b6423f294cd6285f805f9733b9df32c2ee68dd19",
+  "prompts": {},
+  "sessions": {
+    "s_4488c87b2ec788": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "cd429311-14eb-4416-92e4-78b06e80ffb3",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
