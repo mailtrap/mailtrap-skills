@@ -1,0 +1,19 @@
+.cursor-plugin/plugin.json
+  s_4488c87b2ec788::t_c41a55d88a16f1 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "738a53b6ad3deb6a00bbe2a825c97288c538418e",
+  "prompts": {},
+  "sessions": {
+    "s_4488c87b2ec788": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "cd429311-14eb-4416-92e4-78b06e80ffb3",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
