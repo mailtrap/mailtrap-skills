@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "mailtrap",
+  "description": "Send, test, and manage email with Mailtrap",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mailtrap",
+    "email": "support@mailtrap.io",
+    "url": "https://mailtrap.io"
+  },
+  "homepage": "https://mailtrap.io",
+  "repository": "https://github.com/mailtrap/mailtrap-skills",
+  "license": "MIT",
+  "keywords": ["email", "mailtrap", "smtp", "email-testing", "email-api"]
+}

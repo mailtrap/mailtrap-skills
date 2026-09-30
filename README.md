@@ -6,6 +6,8 @@ Agent skills for [Mailtrap](https://mailtrap.io) end users and builders using LL
 
 These skills follow the [Agent Skills](https://agentskills.io) open standard (Anthropic, Dec 2025). Each skill is a directory containing a `SKILL.md` with YAML frontmatter (`name`, `description`) plus Markdown instructions. Compliant agents read only the frontmatter at startup and pull the body on demand (progressive disclosure), so the same folder works across multiple tools.
 
+The repository includes an [Agent Plugins](https://agent-plugins.org) manifest plus native manifests for Claude Code, OpenAI Codex, and Cursor. Windsurf loads the same skills directly from its skills directory and does not require a plugin manifest.
+
 ## Install
 
 Copy or symlink the skill folders into the skills directory your agent reads. The examples below assume you cloned this repo to `/path/to/mailtrap-skills`. After install, restart or reload the agent if it does not pick up new skills.

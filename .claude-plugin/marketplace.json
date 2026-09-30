@@ -1,0 +1,20 @@
+{
+  "name": "mailtrap-skills",
+  "metadata": {
+    "description": "Mailtrap email skills for Claude Code"
+  },
+  "owner": {
+    "name": "Mailtrap",
+    "email": "support@mailtrap.io"
+  },
+  "plugins": [
+    {
+      "name": "mailtrap",
+      "description": "Send, test, and manage email with Mailtrap",
+      "source": "./",
+      "category": "developer-tools",
+      "homepage": "https://mailtrap.io",
+      "tags": ["email", "email-api", "email-testing", "smtp", "templates", "contacts"]
+    }
+  ]
+}
