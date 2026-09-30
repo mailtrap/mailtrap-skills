@@ -1,0 +1,13 @@
+{
+  "name": "mailtrap-skills",
+  "owner": {
+    "name": "Mailtrap",
+    "email": "support@mailtrap.io"
+  },
+  "plugins": [
+    {
+      "name": "mailtrap",
+      "source": "./"
+    }
+  ]
+}
