@@ -1,0 +1,41 @@
+mcp.json
+  s_bc9874edf12092::t_0d6575e046edd1 1-10
+plugin.json
+  s_bc9874edf12092::t_f138da090028ca 14
+  s_bc9874edf12092::t_cf3f67abd8d77f 5
+README.md
+  s_bc9874edf12092::t_1423a5605a970b 76
+  s_bc9874edf12092::t_a9a7dbf14c9b91 9,13,15-29
+  s_bc9874edf12092::t_fea0095301c9bb 85
+  s_bc9874edf12092::t_eaf8b63f73bb12 31
+  s_bc9874edf12092::t_f37120287876a5 49
+  s_bc9874edf12092::t_a2db5b6c3365ff 58
+  s_bc9874edf12092::t_6f368679ea4b7a 40
+  s_bc9874edf12092::t_084b0169950101 67
+  s_bc9874edf12092::t_7aaa2ff415d9d8 118-119
+  s_c48b457eb02ee2::t_fb96a8f6f04a87 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "08a5a1ee6a9e4ef2ee9d69775be8d4d7d2037e1c",
+  "prompts": {},
+  "sessions": {
+    "s_bc9874edf12092": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3d36b2b8-c449-481b-9298-430e6f4fea28",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
+    "s_c48b457eb02ee2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "01eb4c89-9a0a-402d-8539-223e92150ce9",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
