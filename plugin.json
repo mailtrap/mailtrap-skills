@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mailtrap",
   "version": "1.0.0",
-  "description": "Send, test, and manage email with Mailtrap",
+  "description": "Send, test and inspect email with Mailtrap — Email API, Sandbox, templates, sending domains, contacts",
   "author": {
     "name": "Mailtrap",
     "email": "support@mailtrap.io",
@@ -11,5 +11,5 @@
   "homepage": "https://mailtrap.io",
   "repository": "https://github.com/mailtrap/mailtrap-skills",
   "license": "MIT",
-  "keywords": ["email", "mailtrap", "smtp", "email-testing", "email-api"]
+  "keywords": ["email", "mailtrap", "smtp", "email-testing", "transactional-email", "email-sandbox"]
 }
