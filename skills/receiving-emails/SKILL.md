@@ -86,6 +86,22 @@ curl -X POST https://mailtrap.io/api/inbound/folders/{folder_id}/inboxes \
   -d '{"name": "Support tickets"}'
 ```
 
+## Webhooks
+
+Create a webhook in the UI ([Webhooks](https://mailtrap.io/webhooks) → Inbound Inboxes) or via the [Webhooks API](https://docs.mailtrap.io/developers/email-sending/webhooks) with `webhook_type: "inbound_receiving"`, your `url`, and `inbound_inbox_id` (omit it to cover every inbox in the account). Store the `signing_secret` returned on create.
+
+The webhook is a **notification only**; it carries no body or attachments:
+
+```json
+{"events": [{"event": "inbound.message_received", "event_id": "…", "timestamp": 1760000000,
+             "inbox_id": 15, "message_id": "1866872391602282496", "from": "…"}]}
+```
+
+- **Verify the signature:** HMAC-SHA256 of the **raw request body** with the signing secret, hex-encoded, compared with the `Mailtrap-Signature` header.
+- **Fetch the message:** `GET /inboxes/{inbox_id}/messages/{message_id}` for bodies, headers, and attachments. Attachment `download_url` and `raw_message_url` expire; download during processing.
+- **Respond 2xx quickly** and queue slow work. Failed deliveries are retried every 5 minutes, up to 40 attempts ([Webhooks docs](https://docs.mailtrap.io/inbound-email/webhooks.md)).
+- **Polling instead:** `GET /inboxes/{inbox_id}/messages` returns newest first; `last_id` is a cursor to **older** messages. Track the highest message `id` you processed to detect new mail.
+
 ## Forwarding rules
 
 Forward rules automatically forward a copy of matching incoming mail to other addresses, with no code in your app. Example: mail to `sales@yourdomain.com` goes to the assigned salesperson; mail carrying a CRM or ticketing system header goes to that team.
