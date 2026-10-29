@@ -109,6 +109,7 @@ Full guidance — token scope, where to store tokens, auth header forms, and how
 | `converting-email-templates`   | Convert templates from SendGrid, Mailgun, Mandrill, Postmark, Brevo, SES to Mailtrap Handlebars |
 | `setting-up-sending-domain`    | Domain verification, DNS (add all records), compliance                                          |
 | `managing-contacts`            | Contacts API, lists, segments, CRM-style sync                                                   |
+| `receiving-emails`             | Inbound Email: inboxes, webhooks, threads, replies, forwarding rules, agent inboxes             |
 
 ## References
 
