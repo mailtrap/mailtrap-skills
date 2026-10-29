@@ -122,7 +122,7 @@ curl -X POST https://mailtrap.io/api/inbound/inboxes/{inbox_id}/forward_rules \
 - All conditions in a rule must match. A rule with **no conditions forwards everything**. Every matching rule fires; an address named by several matching rules gets one copy. Matching ignores case.
 - Limits: 5 rules per inbox, 5 conditions and 5 destinations per rule.
 
-<!-- TODO: link the public forward rules API reference once published. -->
+See the [Forward rules API reference](https://docs.mailtrap.io/developers/inbound/forward-rules).
 
 ## Threads, replies, and forwards
 

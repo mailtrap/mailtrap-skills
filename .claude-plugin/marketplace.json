@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "mailtrap",
-      "description": "Send, test, and manage email with Mailtrap",
+      "description": "Send, receive, test, and manage email with Mailtrap",
       "source": "./",
       "category": "developer-tools",
       "homepage": "https://mailtrap.io",
