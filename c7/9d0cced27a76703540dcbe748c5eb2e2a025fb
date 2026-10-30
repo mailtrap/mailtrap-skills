@@ -1,0 +1,19 @@
+assets/logo.svg
+  s_3d986830f166aa::t_bd5efc0b7bbb98 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c79d0cced27a76703540dcbe748c5eb2e2a025fb",
+  "prompts": {},
+  "sessions": {
+    "s_3d986830f166aa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66bddf4e-c253-4870-aa95-204c25fe90df",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
