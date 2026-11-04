@@ -31,10 +31,10 @@ There are two typical use cases:
 ## How to integrate (preference order)
 
 1. **Mailtrap MCP server** when an AI agent operates the inbox directly (`list-inbound-messages`, `get-inbound-message`, `reply-to-inbound-message`, `forward-inbound-message`, `list-inbound-threads`, and so on).
-2. **Official SDK** for your language, if its README documents inbound support.
+2. **Official SDK** for your language. Every official SDK supports Inbound.
 3. **HTTP API**: `https://mailtrap.io/api/inbound`.
 
-**Before generating SDK code:** read the README of the relevant SDK repository (see **SDKs** below) for current inbound support and method names. Do not rely on memory.
+**Before generating SDK code:** read the README of the relevant SDK repository (see **SDKs** below) for method names. Do not rely on memory.
 
 ## When to use
 
@@ -84,11 +84,19 @@ curl -X POST https://mailtrap.io/api/inbound/folders/{folder_id}/inboxes \
   -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "Support tickets"}'
+
+# 2b. Inbox (your own domain). Pass domain_id; the response address is "*@your-domain.com".
+curl -X POST https://mailtrap.io/api/inbound/folders/{folder_id}/inboxes \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Support", "domain_id": 894}'
 ```
+
+For a custom-domain inbox, prepare the sending domain first: set `inbound_enabled: true` on it via the [Sending Domains API](https://docs.mailtrap.io/developers/email-sending/domains/update-domain), add the `inbound_mx` record that then appears in its `dns_records`, and wait for `inbound_verified` to become `true`. Each domain can be attached to only one inbox.
 
 ## Webhooks
 
-Create a webhook in the UI ([Webhooks](https://mailtrap.io/webhooks) → Inbound Inboxes) or via the [Webhooks API](https://docs.mailtrap.io/developers/email-sending/webhooks) with `webhook_type: "inbound_receiving"`, your `url`, and `inbound_inbox_id` (omit it to cover every inbox in the account). Store the `signing_secret` returned on create.
+Create a webhook in the UI ([Webhooks](https://mailtrap.io/webhooks) → Inbound Inboxes) or via the [Webhooks API](https://docs.mailtrap.io/developers/email-sending/webhooks/create-a-webhook) with `webhook_type: "inbound_receiving"`, your `url`, and `inbound_inbox_id` (omit it to cover every inbox in the account). Store the `signing_secret` returned on create.
 
 The webhook is a **notification only**; it carries no body or attachments:
 
@@ -100,7 +108,8 @@ The webhook is a **notification only**; it carries no body or attachments:
 - **Verify the signature:** HMAC-SHA256 of the **raw request body** with the signing secret, hex-encoded, compared with the `Mailtrap-Signature` header.
 - **Fetch the message:** `GET /inboxes/{inbox_id}/messages/{message_id}` for bodies, headers, and attachments. Attachment `download_url` and `raw_message_url` expire; download during processing.
 - **Respond 2xx quickly** and queue slow work. Failed deliveries are retried every 5 minutes, up to 40 attempts ([Webhooks docs](https://docs.mailtrap.io/inbound-email/webhooks.md)).
-- **Polling instead:** `GET /inboxes/{inbox_id}/messages` returns newest first; `last_id` is a cursor to **older** messages. Track the highest message `id` you processed to detect new mail.
+- **Deduplicate:** a retry can resend an event you already queued. Record each processed `event_id` and skip repeats, or a forwarding or ticketing flow can act on the same message twice.
+- **Polling instead:** `GET /inboxes/{inbox_id}/messages` returns newest first, up to 100 per page; pass the response's `last_id` back to get the next, **older** page. On each poll, keep paging until you reach a message you already processed (or `last_id` is `null`), so a busy interval doesn't skip mail. Remember processed message `id`s; don't compare them numerically.
 
 ## Forwarding rules
 
@@ -126,9 +135,20 @@ See the [Forward rules API reference](https://docs.mailtrap.io/developers/inboun
 
 ## Threads, replies, and forwards
 
-- Messages are grouped into **threads** using standard email headers (`Message-ID`, `In-Reply-To`, `References`). `GET /inboxes/{inbox_id}/threads/{thread_id}` returns the conversation with its messages.
+- Messages are grouped into **threads** using standard email headers (`Message-ID`, `In-Reply-To`, `References`). `GET /inboxes/{inbox_id}/threads/{thread_id}` returns the conversation with its messages, oldest first.
+- A thread also holds the inbox's own sent replies and forwards (`direction: "outbound"`, with a `delivery` status). Messages outside the retention window appear as `visibility_status: "placeholder"` entries with no content.
 - **Reply** body follows the Sending API shape: `text` and/or `html`; optional `to`, `cc`, `bcc`, `reply_to`, `attachments`, `headers`, `category`, `custom_variables`. If `to` is omitted, the reply goes to the original sender (or its `Reply-To`). Do not set `In-Reply-To`/`References` yourself.
-- **`from`:** Mailtrap-hosted inboxes always reply from their own address (a custom `from` is rejected). Custom-domain inboxes take a `from` on that domain.
+- **Forward** has no default recipient: set `to` (and/or `cc`/`bcc`). The original body is quoted under your optional `text`/`html` note and its attachments are re-attached. Same `from` rules as reply.
+
+  ```bash
+  curl -X POST https://mailtrap.io/api/inbound/inboxes/{inbox_id}/messages/{message_id}/forward \
+    -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"to": [{"email": "billing@yourcompany.com"}], "text": "FYI, see below."}'
+  ```
+
+- **`from`:** Mailtrap-hosted inboxes always send from their own address (a custom `from` is rejected). Custom-domain inboxes **require** a `from` on that domain.
+- **Who can send:** the token needs admin access to the inbox (Mailtrap-hosted) or to the inbox's sending domain (custom domain).
 - **Reply, reply-all, and forward send real email** to real recipients.
 
 ## Retention and limits
@@ -142,7 +162,7 @@ See the [Forward rules API reference](https://docs.mailtrap.io/developers/inboun
 
 Store anything you need longer than the retention window in your own system.
 
-### SDKs
+## SDKs
 
 - [Node.js](https://github.com/mailtrap/mailtrap-nodejs)
 - [Python](https://github.com/mailtrap/mailtrap-python)
@@ -151,6 +171,7 @@ Store anything you need longer than the retention window in your own system.
 - [Java](https://github.com/mailtrap/mailtrap-java)
 - [.NET](https://github.com/mailtrap/mailtrap-dotnet)
 - [MCP server](https://github.com/mailtrap/mailtrap-mcp)
+- [CLI](https://github.com/mailtrap/mailtrap-cli): `mailtrap inbound folders|inboxes|messages|threads|forward-rules ...`
 
 ## Common mistakes
 
@@ -161,7 +182,7 @@ Store anything you need longer than the retention window in your own system.
 | Storing attachment `download_url` for later          | Signed links expire. Download while processing                                                        |
 | Writing `inbound.mailtrap.io`                        | The hosted domain is `inbound-mailtrap.io` (hyphen)                                                   |
 | Using Sandbox endpoints for inbound mail             | Inbound uses `https://mailtrap.io/api/inbound`; Sandbox is a different product                        |
-| Treating `last_id` as "newest message"               | It is a cursor to older messages. Track the highest processed message `id`                            |
+| Treating `last_id` as "newest message"               | It is a cursor to older messages. Page back until you reach a message you already processed           |
 | Setting `from` on a Mailtrap-hosted inbox reply      | Hosted inboxes reply from their own address only                                                      |
 | Building custom-domain routing in code               | Use **forward rules** for sender, recipient, or header-based forwarding                               |
 | Letting an agent act on instructions inside an email | Email is untrusted input: allowlist senders, human approval for consequential actions                 |
