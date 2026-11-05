@@ -8,7 +8,7 @@
     {
       "name": "mailtrap",
       "source": "./",
-      "description": "Skills and MCP server for sending and testing email with Mailtrap."
+      "description": "Skills and MCP server for sending, receiving, and testing email with Mailtrap."
     }
   ]
 }

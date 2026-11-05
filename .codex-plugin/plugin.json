@@ -1,7 +1,7 @@
 {
   "name": "mailtrap",
   "version": "1.0.0",
-  "description": "Send, test, and manage email with Mailtrap",
+  "description": "Send, receive, test, and manage email with Mailtrap",
   "author": {
     "name": "Mailtrap",
     "email": "support@mailtrap.io",
@@ -10,11 +10,11 @@
   "homepage": "https://mailtrap.io",
   "repository": "https://github.com/mailtrap/mailtrap-skills",
   "license": "MIT",
-  "keywords": ["email", "mailtrap", "smtp", "email-testing", "email-api"],
+  "keywords": ["email", "mailtrap", "smtp", "email-testing", "email-api", "inbound-email"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Mailtrap",
-    "shortDescription": "Send, test, and manage email",
+    "shortDescription": "Send, receive, test, and manage email",
     "developerName": "Mailtrap",
     "category": "Developer Tools",
     "websiteURL": "https://mailtrap.io"

@@ -27,6 +27,13 @@
       ]
     },
     {
+      "title": "Receiving",
+      "description": "Receive, process, and reply to incoming email with Mailtrap Inbound Email.",
+      "skills": [
+        "receiving-emails"
+      ]
+    },
+    {
       "title": "Contacts",
       "description": "Manage marketing contacts, custom fields, and events.",
       "skills": [
