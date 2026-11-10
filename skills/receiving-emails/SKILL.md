@@ -96,14 +96,23 @@ For a custom-domain inbox, prepare the sending domain first: set `inbound_enable
 
 ## Webhooks
 
-Create a webhook in the UI ([Webhooks](https://mailtrap.io/webhooks) → Inbound Inboxes) or via the [Webhooks API](https://docs.mailtrap.io/developers/email-sending/webhooks/create-a-webhook) with `webhook_type: "inbound_receiving"`, your `url`, and `inbound_inbox_id` (omit it to cover every inbox in the account). Store the `signing_secret` returned on create.
+Create a webhook in the UI ([Webhooks](https://mailtrap.io/webhooks) → Inbound Inboxes) or via the [Webhooks API](https://docs.mailtrap.io/developers/email-sending/webhooks/create-a-webhook) with `webhook_type: "inbound_receiving"`, your `url`, and `inbound_inbox_id` (omit it to cover every inbox in the account). Wrap the fields in a `webhook` object; a flat body returns `400`. Store the `signing_secret` returned on create.
+
+```bash
+curl -X POST https://mailtrap.io/api/accounts/{account_id}/webhooks \
+  -H "Authorization: Bearer $MAILTRAP_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"webhook": {"url": "https://example.com/inbound", "webhook_type": "inbound_receiving", "inbound_inbox_id": 15}}'
+```
 
 The webhook is a **notification only**; it carries no body or attachments:
 
 ```json
-{"events": [{"event": "inbound.message_received", "event_id": "…", "timestamp": 1760000000,
+{"events": [{"event": "inbound.message_received", "event_id": "…", "timestamp": 1794224188670,
              "inbox_id": 15, "message_id": "1866872391602282496", "from": "…"}]}
 ```
+
+`timestamp` is Unix time in **milliseconds**, not seconds.
 
 - **Verify the signature:** HMAC-SHA256 of the **raw request body** with the signing secret, hex-encoded, compared with the `Mailtrap-Signature` header.
 - **Fetch the message:** `GET /inboxes/{inbox_id}/messages/{message_id}` for bodies, headers, and attachments. Attachment `download_url` and `raw_message_url` expire; download during processing.
@@ -130,14 +139,16 @@ curl -X POST https://mailtrap.io/api/inbound/inboxes/{inbox_id}/forward_rules \
 - `operator`: `equal`, `not_equal`, `contains`, `starts_with`, `ends_with`; for headers also `empty` / `not_empty` (no `value`).
 - All conditions in a rule must match. A rule with **no conditions forwards everything**. Every matching rule fires; an address named by several matching rules gets one copy. Matching ignores case.
 - Limits: 5 rules per inbox, 5 conditions and 5 destinations per rule.
+- **Debugging rules:** each message has a `forwards` list with one entry per destination: `rule_id`, `rule_name`, `destination`, `status` (`forwarded` or `rejected`), and `reason` when rejected.
 
 See the [Forward rules API reference](https://docs.mailtrap.io/developers/inbound/forward-rules).
 
 ## Threads, replies, and forwards
 
-- Messages are grouped into **threads** using standard email headers (`Message-ID`, `In-Reply-To`, `References`). `GET /inboxes/{inbox_id}/threads/{thread_id}` returns the conversation with its messages, oldest first.
+- Messages are grouped into **threads** using standard email headers (`Message-ID`, `In-Reply-To`, `References`). `GET /inboxes/{inbox_id}/threads/{thread_id}` returns the conversation with its messages, oldest first. `GET /inboxes/{inbox_id}/threads?search=...` filters by subject and by `from`/`to`/`cc`/`bcc` addresses (case-insensitive substring).
 - A thread also holds the inbox's own sent replies and forwards (`direction: "outbound"`, with a `delivery` status). Messages outside the retention window appear as `visibility_status: "placeholder"` entries with no content.
 - **Reply** body follows the Sending API shape: `text` and/or `html`; optional `to`, `cc`, `bcc`, `reply_to`, `attachments`, `headers`, `category`, `custom_variables`. If `to` is omitted, the reply goes to the original sender (or its `Reply-To`). Do not set `In-Reply-To`/`References` yourself.
+- **Reply-all** works like reply, but `cc` defaults to the original's `To` + `Cc` (minus the inbox's own addresses and the sender). It reaches **every original recipient**; pass `to` or `cc` to override (an empty `cc` sends no copies).
 - **Forward** has no default recipient: set `to` (and/or `cc`/`bcc`). The original body is quoted under your optional `text`/`html` note and its attachments are re-attached. Same `from` rules as reply.
 
   ```bash
