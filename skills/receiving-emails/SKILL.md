@@ -148,7 +148,7 @@ See the [Forward rules API reference](https://docs.mailtrap.io/developers/inboun
 - Messages are grouped into **threads** using standard email headers (`Message-ID`, `In-Reply-To`, `References`). `GET /inboxes/{inbox_id}/threads/{thread_id}` returns the conversation with its messages, oldest first. `GET /inboxes/{inbox_id}/threads?search=...` filters by subject and by `from`/`to`/`cc`/`bcc` addresses (case-insensitive substring).
 - A thread also holds the inbox's own sent replies and forwards (`direction: "outbound"`, with a `delivery` status). Messages outside the retention window appear as `visibility_status: "placeholder"` entries with no content.
 - **Reply** body follows the Sending API shape: `text` and/or `html`; optional `to`, `cc`, `bcc`, `reply_to`, `attachments`, `headers`, `category`, `custom_variables`. If `to` is omitted, the reply goes to the original sender (or its `Reply-To`). Do not set `In-Reply-To`/`References` yourself.
-- **Reply-all** works like reply, but `cc` defaults to the original's `To` + `Cc` (minus the inbox's own addresses and the sender). It reaches **every original recipient**; pass `to` or `cc` to override (an empty `cc` sends no copies).
+- **Reply-all** works like reply, but `cc` defaults to the original's `To` + `Cc` (minus the inbox's own addresses and the sender). To narrow it, pass `cc` (`[]` sends no copies). `to` only replaces the original sender.
 - **Forward** has no default recipient: set `to` (and/or `cc`/`bcc`). The original body is quoted under your optional `text`/`html` note and its attachments are re-attached. Same `from` rules as reply.
 
   ```bash
